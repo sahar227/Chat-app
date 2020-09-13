@@ -5,6 +5,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 const mongoose = require('mongoose');
+const logger = require('./libs/logger');
 
 mongoose.connect(config.get('mongo.connection_string'), {
   useNewUrlParser: true,
@@ -19,4 +20,4 @@ app.get('/test', (req, res) => {
 
 io.on('connection', () => { /* … */ });
 const port = config.get('server.port');
-server.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(port, () => logger.info(`Listening on port ${port}`));
