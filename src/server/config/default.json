@@ -4,5 +4,9 @@
     },
     "mongo" : {
         "connection_string" : "mongodb://localhost/chatApp"
+    },
+    "corsOptions" : {
+        "origin": "http://localhost.com",
+        "optionsSuccessStatus": 200
     }
 }

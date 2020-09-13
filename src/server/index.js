@@ -3,6 +3,9 @@ const config = require('config');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const cors = require('cors');
+const corsOptions = config.get('corsOptions');
+app.use(cors(corsOptions));
 
 const mongoose = require('mongoose');
 const logger = require('./libs/logger');
