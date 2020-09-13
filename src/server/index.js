@@ -1,23 +1,14 @@
 const config = require('config');
+const logger = require('./libs/logger');
+const setUpMiddleWare = require('./libs/setUpMiddleware');
+const setUpMongoose = require('./libs/setUpMongoose');
 
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const cors = require('cors');
-const corsOptions = config.get('corsOptions');
-const helmet = require('helmet');
-app.use(cors(corsOptions));
-app.use(helmet());
 
-const mongoose = require('mongoose');
-const logger = require('./libs/logger');
-
-mongoose.connect(config.get('mongo.connection_string'), {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
+setUpMiddleWare(app);
+setUpMongoose();
 
 app.get('/test', (req, res) => {
     return res.send('test');
