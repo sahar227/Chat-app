@@ -5,7 +5,9 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const cors = require('cors');
 const corsOptions = config.get('corsOptions');
+const helmet = require('helmet');
 app.use(cors(corsOptions));
+app.use(helmet());
 
 const mongoose = require('mongoose');
 const logger = require('./libs/logger');
