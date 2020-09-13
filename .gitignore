@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Configuration files with production and development secrets
+production.json
+development.json
