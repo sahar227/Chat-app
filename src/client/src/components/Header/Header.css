@@ -1,0 +1,13 @@
+.header-container {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 1.2rem;
+    color: chartreuse;
+    padding: 3px 0;
+}
+
+li {
+    list-style-type: none;
+}
