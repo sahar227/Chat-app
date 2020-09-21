@@ -3,11 +3,22 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    font-size: 1.2rem;
     color: chartreuse;
     padding: 3px 0;
+    align-items: center;
 }
 
-li {
-    list-style-type: none;
+.login-btn {
+    font-size: 1.1rem;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background-color: white;
+    color:black;
 }
