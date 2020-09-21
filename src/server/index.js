@@ -14,6 +14,6 @@ app.get('/test', (req, res) => {
     return res.send('test');
 });
 
-io.on('connection', () => { /* … */ });
+io.on('connection', (socket) => { socket.emit('sayHi', 'hi') });
 const port = config.get('server.port');
 server.listen(port, () => logger.info(`Listening on port ${port}`));
