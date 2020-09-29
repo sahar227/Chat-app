@@ -13,7 +13,7 @@ module.exports = new GoogleStrategy({
         if(user)
             return done(null, user);
         const verifiedEmail = profile.emails.find(email => email.verified).value || profile.emails[0].value;
-        user = new User({googleId: profile.id, email: verifiedEmail,  name: {first: profile.name.givenName, second: profile.name.familyName}});
+        user = new User({googleId: profile.id, email: verifiedEmail,  name: {first: profile.name.givenName, last: profile.name.familyName}});
         await user.save();
         return done(null, user);
       }
