@@ -6,7 +6,16 @@
         "connection_string" : "mongodb://localhost/chatApp"
     },
     "corsOptions" : {
-        "origin": "http://localhost.com",
-        "optionsSuccessStatus": 200
+        "origin": "http://localhost:3001",
+        "optionsSuccessStatus": 200,
+        "credentials": true
+    },
+    "googleAuth": {
+        "GOOGLE_CLIENT_ID": "CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET": "CLIENT_SECRET",
+        "CALLBACK_URL": "CALLBACK_URL"
+    },
+    "jwtAuth": {
+        "secret": "secretkey"
     }
 }
