@@ -5,6 +5,7 @@ const corsOptions = config.get('corsOptions');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const error = require('../middleware/error');
 
 module.exports = (app) => {
     app.use(cors(corsOptions));
@@ -13,4 +14,5 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(passport.initialize());
+    app.use(error);
 }
