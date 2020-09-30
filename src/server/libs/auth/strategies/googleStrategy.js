@@ -1,6 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const config = require('config');
-const User = require('../../../models/user');
+const {User} = require('../../../models/user');
 
 module.exports = new GoogleStrategy({
     clientID: config.get('googleAuth.GOOGLE_CLIENT_ID'),

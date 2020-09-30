@@ -1,7 +1,7 @@
 const passport = require('passport');
 const googleStrategy = require('./strategies/googleStrategy');
 const jwtStrategy = require('./strategies/jwtStrategy');
-const User = require('../../models/user');
+const {User} = require('../../models/user');
 
 module.exports = () => {
     passport.serializeUser(function(user, done) {
