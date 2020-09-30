@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const auth = require('../middleware/auth');
-const {ChatRoom} = require('../models/chatRoom')
+const {ChatRoom, validateChatRoom} = require('../models/chatRoom')
 const {User} = require('../models/user')
 const mongoose = require('mongoose');
 
@@ -10,6 +10,10 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', auth, async (req, res) => {
+    const error = validateChatRoom(req.body);
+    if(error) {
+        return res.status(403).send(error);
+    }
     const chatRoom = new ChatRoom({roomName: req.body.roomName});
     await chatRoom.save();
     req.user.chats.push(chatRoom);
@@ -21,7 +25,7 @@ router.post('/', auth, async (req, res) => {
         user.chats.push(chatRoom);
         user.save();
     }
-    return res.status(200);
+    return res.status(200).send(chatRoom);
 });
 
 module.exports = router;
