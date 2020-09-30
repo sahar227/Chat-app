@@ -12,7 +12,7 @@ router.get('/', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
     const error = validateChatRoom(req.body);
     if(error) {
-        return res.status(403).send(error);
+        return res.status(400).send(error);
     }
     const chatRoom = new ChatRoom({roomName: req.body.roomName});
     await chatRoom.save();

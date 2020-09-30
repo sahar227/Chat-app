@@ -11,6 +11,7 @@ const io = require('socket.io')(server);
 
 const authRouter = require('./routes/auth');
 const chatRoomRouter = require('./routes/chatRoom');
+const messageRouter = require('./routes/message');
 
 setUpMiddleWare(app);
 setUpMongoose();
@@ -19,6 +20,7 @@ setUpPassport();
 
 app.use('/api/auth/google', authRouter);
 app.use('/api/chatroom', chatRoomRouter);
+app.use('/api/message', messageRouter);
 
 io.on('connection', (socket) => { socket.emit('sayHi', 'hi') });
 const port = config.get('server.port');
