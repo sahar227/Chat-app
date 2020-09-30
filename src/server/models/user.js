@@ -9,7 +9,7 @@ const userSchema = new Schema({
   },
   email: String,
   googleId: String,
-  chats: [chatRoomSchema]
+  chats: [{type: Schema.ObjectId, ref: 'chatrooms', unique: true}]
 });
 
 const User = mongoose.model('users', userSchema);

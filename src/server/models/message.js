@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
  
 const messageSchema = new Schema({
   content: String,
-  author: mongoose.Types.ObjectId,
-  chatRoom: mongoose.Types.ObjectId,
+  author: {type: Schema.ObjectId, ref: 'users'},
+  chatRoom: {type: Schema.ObjectId, ref: 'chatRooms'},
   createdAt: { type: Date, default: Date.now }
 });
 
