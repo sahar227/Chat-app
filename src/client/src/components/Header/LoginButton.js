@@ -1,17 +1,18 @@
-import React from 'react';
-import {URL} from '../../configs';
+import React, { useEffect } from 'react';
+import { URL } from '../../configs';
 import Cookies from 'js-cookie';
 
-const renderLoginOrLogOut = () => {
-    if(!Cookies.get('jwt'))
+const LoginButton = ({token, setToken}) => {
+    useEffect(() => {
+        const jwtToken = Cookies.get('jwt');
+        setToken(jwtToken);
+    });
+
+    if(!token)
         return <a href={`${URL}/api/auth/google`} className="login-btn">Log in</a>;
     return (
             <a href="/" onClick={() => Cookies.remove('jwt')} className="login-btn">Log out</a>
     
     );
 }
-export default function LoginButton() {
-    return (
-        renderLoginOrLogOut()
-    );
-}
+export default LoginButton;
