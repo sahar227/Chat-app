@@ -16,11 +16,12 @@ router.post('/', auth, wrap(async (req, res) => {
     if(error)
         return res.status(400).send(error);
     const chatRoomId = mongoose.Types.ObjectId(req.body.chatroom);
-    const chatRoom = await ChatRoom.findById(chatRoomId);
+    const chatRoom = await ChatRoom.findById(chatRoomId).populate('participants', 'id');
     if(!chatRoom)
         return res.status(404).send('chat room with given id does not exist');
     const message = new Message({author: req.user.id, content: req.body.content, chatRoom: chatRoomId});
     await message.save();
+    // TODO: send socket notification to all participants in the chat who are logged in
     return res.send(message);
 }));
 

@@ -15,14 +15,15 @@ router.post('/', auth, wrap(async (req, res) => {
     if(error) {
         return res.status(400).send(error);
     }
-    const chatRoom = new ChatRoom({roomName: req.body.roomName});
+    const participants = req.body.participants.map(id => mongoose.Types.ObjectId(participantId));
+    const chatRoom = new ChatRoom({roomName: req.body.roomName, participants});
     await chatRoom.save();
     req.user.chats.push(chatRoom);
     await req.user.save();
-    for(const participantId of req.body.participants) {
-        if(participantId === req.user.id.toString())
+    for(const participantId of participants) {
+        if(participantId === req.user.id)
             continue;
-        const user = await User.findById(mongoose.Types.ObjectId(participantId));
+        const user = await User.findById(participantId);
         user.chats.push(chatRoom);
         user.save();
     }

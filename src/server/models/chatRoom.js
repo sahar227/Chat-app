@@ -4,6 +4,7 @@ const joi = require('joi');
  
 const chatRoomSchema = new Schema({
   roomName: { type: String, required: true},
+  participants: { type: Schema.ObjectId, ref: 'users' },
   createdAt: { type: Date, default: Date.now },
   lastMessage: {type: Schema.ObjectId, ref: 'messages'}
 });
