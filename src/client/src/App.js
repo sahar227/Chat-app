@@ -2,7 +2,28 @@ import React, { useEffect, useState } from 'react'
 import Header from './components/Header/Header';
 import socketIOClient from "socket.io-client";
 import {URL} from './configs';
+import ChatList from './components/ChatList/ChatList';
+import ChatRoom from './components/ChatRoom/ChatRoom';
 
+
+const chats = [
+    {
+        id: 1,
+        roomName: 'first',
+        lastMessage: {
+            author: 'sahar',
+            content: 'my message'
+        }
+    },
+    {
+        id: 2,
+        roomName: 'second',
+        lastMessage: {
+            author: 'sahar2',
+            content: 'my message2'
+        }
+    }
+];
 export default function App() {
     const [token, setToken] = useState(null);
 
@@ -26,6 +47,11 @@ export default function App() {
     return (
         <div>
             <Header token={token} setToken={setToken}/>
+            <div style={{display:"flex"}}>
+                <ChatList availableChats={chats}/>
+                <ChatRoom/>
+            </div>
         </div>
+
     )
 }
