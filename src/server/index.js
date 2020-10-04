@@ -29,6 +29,10 @@ setUpPassport();
 
 
 getIO().on('connection', (socket) => { 
+    socket.on('disconnect', () => {
+        userToSockets.removeConnection(socket.id)
+    });
+
     socket.on('authenticate', async (token) => {
         if(!token)
             return socket.emit('authFailed');
