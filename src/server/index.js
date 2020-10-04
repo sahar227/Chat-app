@@ -18,14 +18,14 @@ const jwt = require('jsonwebtoken');
 const {User} = require('./models/user');
 const userToSockets = require('./libs/userToSocket');
 
-app.use('/api/auth/google', authRouter);
-app.use('/api/chatroom', chatRoomRouter);
-app.use('/api/message', messageRouter);
-
 setUpMiddleWare(app);
 setUpSocketIO(io);
 setUpMongoose();
 setUpPassport();
+
+app.use('/api/auth/google', authRouter);
+app.use('/api/chatroom', chatRoomRouter);
+app.use('/api/message', messageRouter);
 
 getIO().on('connection', (socket) => { 
     socket.on('disconnect', () => {

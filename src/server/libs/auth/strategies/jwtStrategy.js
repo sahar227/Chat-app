@@ -3,9 +3,8 @@ const config = require('config');
 const {User} = require('../../../models/user');
 
 const cookieExtractor = function(req) {
-    var token = null;
-    if (req && req.cookies)
-    {
+    let token = null;
+    if (req && req.cookies) {
         token = req.cookies['jwt'];
     }
     return token;
