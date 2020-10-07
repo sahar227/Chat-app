@@ -13,7 +13,10 @@ const userSchema = new Schema({
 });
 
 const validationSchema = joi.object({
-  email: joi.string().email({ tlds: { allow: false } }),
+  email: joi
+    .string()
+    .email({ tlds: { allow: false } })
+    .required(),
 });
 
 const validate = (params) => {
