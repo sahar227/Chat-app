@@ -1,57 +1,52 @@
-import React, { useEffect, useState } from 'react'
-import Header from './components/Header/Header';
+import React, { useEffect, useState, useMemo } from "react";
+import Header from "./components/Header/Header";
 import socketIOClient from "socket.io-client";
-import {URL} from './configs';
-import ChatList from './components/ChatList/ChatList';
-import ChatRoom from './components/ChatRoom/ChatRoom';
+import { URL } from "./configs";
+import api from "./apis/api";
+import ChatList from "./components/ChatList/ChatList";
+import ChatRoom from "./components/ChatRoom/ChatRoom";
 
-
-const chats = [
-    {
-        id: 1,
-        roomName: 'first',
-        lastMessage: {
-            author: 'sahar',
-            content: 'my message'
-        }
-    },
-    {
-        id: 2,
-        roomName: 'second',
-        lastMessage: {
-            author: 'sahar2',
-            content: 'my message2'
-        }
-    }
-];
 export default function App() {
-    const [token, setToken] = useState(null);
+  const [token, setToken] = useState(null);
+  const [chats, setChats] = useState([]);
 
-    useEffect(() => {
-        if(!token)
-            return;
-        const socket = socketIOClient(URL);
-        socket.on('requestAuth', () => {
-            socket.emit('authenticate', token);
-        });
-        socket.on('authFailed', () => {
-            console.log('auth failed');
-        });
-        socket.on('authSuccess', () => {
-            console.log('auth success');
-        });
+  const getChats = useMemo(
+    () => () => {
+      api
+        .get("/chatroom")
+        .then((res) => setChats(res.data))
+        .catch(console.log);
+    },
+    []
+  );
+  useEffect(() => {
+    if (!token) return;
+    const socket = socketIOClient(URL);
+    socket.on("requestAuth", () => {
+      socket.emit("authenticate", token);
+    });
+    socket.on("authFailed", () => {
+      console.log("auth failed");
+    });
+    socket.on("authSuccess", () => {
+      console.log("auth success");
+    });
 
-        // clean up when done
-        return () => socket.disconnect();
-    }, [token]);
-    return (
-        <div>
-            <Header token={token} setToken={setToken}/>
-            <div style={{display:"flex"}}>
-                <ChatList availableChats={chats}/>
-                <ChatRoom/>
-            </div>
-        </div>
+    // clean up when done
+    return () => socket.disconnect();
+  }, [token]);
 
-    )
+  useEffect(() => {
+    if (!token) return;
+    getChats();
+  }, [token, getChats]);
+  return (
+    <div>
+      <Header token={token} setToken={setToken} />
+      <div style={{ display: "flex" }}>
+        <ChatList availableChats={chats} />
+        <ChatRoom />
+      </div>
+    </div>
+  );
 }
