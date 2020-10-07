@@ -10,6 +10,15 @@ export default function App() {
   const [token, setToken] = useState(null);
   const [chats, setChats] = useState([]);
 
+  // TODO: pass this method to a modal
+  const createNewRoom = async (chat) => {
+    const res = await api.post("/chatroom", {
+      roomName: "room from front end",
+      participants: [],
+    });
+    if (res.status === 200) setChats((prev) => [...prev, res.data]);
+  };
+
   const getChats = useMemo(
     () => () => {
       api
@@ -47,6 +56,7 @@ export default function App() {
         <ChatList availableChats={chats} />
         <ChatRoom />
       </div>
+      <button onClick={createNewRoom}>Create room</button>
     </div>
   );
 }
