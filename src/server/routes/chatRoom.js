@@ -33,7 +33,7 @@ router.post(
     req.user.chats.push(chatRoom);
     await req.user.save();
     for (const participantId of participants) {
-      if (participantId === req.user.id) continue;
+      if (participantId.toString() === req.user._id.toString()) continue;
       const user = await User.findById(participantId);
       user.chats.push(chatRoom);
       user.save();

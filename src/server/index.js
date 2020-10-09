@@ -24,7 +24,7 @@ setUpSocketIO(io);
 setUpMongoose();
 setUpPassport();
 
-app.use("/api/auth/google", authRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/chatroom", chatRoomRouter);
 app.use("/api/message", messageRouter);
 app.use("/api/user", userRouter);

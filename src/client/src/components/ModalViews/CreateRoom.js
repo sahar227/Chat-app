@@ -34,7 +34,7 @@ export default function CreateRoom({ createNewRoom }) {
         <button onClick={addParticipant}>Add!</button>
       </div>
       {participantsToAdd.map((user) => (
-        <p>
+        <p key={user._id}>
           {user.name.first} {user.name.last}
         </p>
       ))}
