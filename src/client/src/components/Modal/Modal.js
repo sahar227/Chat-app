@@ -16,18 +16,49 @@ export default function Modal({ modalComponent, setModalComponent }) {
       }}
       onClick={closeModal}
     >
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "100vw",
+        }}
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
           style={{
-            color: "red",
+            backgroundColor: "white",
+            color: "black",
+            height: "50%",
+            width: "50%",
           }}
-          onClick={closeModal}
         >
-          X
-        </button>
-      </div>
+          <div
+            style={{
+              backgroundColor: "gray",
+              padding: "0.25rem",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <p style={{ color: "white" }}>Create room</p>
+            <button
+              style={{
+                color: "red",
+                width: "1.5rem",
+                height: "1.5rem",
+              }}
+              onClick={closeModal}
+            >
+              X
+            </button>
+          </div>
 
-      {modalComponent}
+          {modalComponent}
+        </div>
+      </div>
     </div>
   );
 }

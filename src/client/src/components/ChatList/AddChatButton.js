@@ -1,8 +1,8 @@
 import React from "react";
-import TestView from "../ModalViews/TestView";
+import CreateRoom from "../ModalViews/CreateRoom";
 
 export default function AddChatButton({ setModalComponent }) {
   return (
-    <button onClick={() => setModalComponent(TestView)}>add chat room</button>
+    <button onClick={() => setModalComponent(CreateRoom)}>add chat room</button>
   );
 }
