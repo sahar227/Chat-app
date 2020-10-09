@@ -22,7 +22,7 @@ router.post(
     if (error) {
       return res.status(400).send(error);
     }
-    const participants = req.body.participants.map((id) =>
+    const participants = req.body.participants.map((participantId) =>
       mongoose.Types.ObjectId(participantId)
     );
     const chatRoom = new ChatRoom({

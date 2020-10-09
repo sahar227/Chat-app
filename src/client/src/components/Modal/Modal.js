@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Modal({ modalComponent, setModalComponent }) {
-  if (!modalComponent) return null;
+export default function Modal({ modalComponent, setModalComponent, children }) {
+  if (modalComponent === "") return null;
 
-  const closeModal = () => setModalComponent(null);
+  const closeModal = () => setModalComponent("");
   return (
     <div
       style={{
@@ -56,7 +56,7 @@ export default function Modal({ modalComponent, setModalComponent }) {
             </button>
           </div>
 
-          {modalComponent}
+          {children}
         </div>
       </div>
     </div>

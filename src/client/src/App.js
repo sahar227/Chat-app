@@ -6,17 +6,18 @@ import api from "./apis/api";
 import ChatList from "./components/ChatList/ChatList";
 import ChatRoom from "./components/ChatRoom/ChatRoom";
 import Modal from "./components/Modal/Modal";
+import CreateRoom from "./components/ModalViews/CreateRoom";
 
 export default function App() {
   const [token, setToken] = useState(null);
   const [chats, setChats] = useState([]);
-  const [modalComponent, setModalComponent] = useState(null);
+  const [modalComponent, setModalComponent] = useState("");
 
   // TODO: pass this method to a modal
-  const createNewRoom = async (chat) => {
+  const createNewRoom = async (roomName, participants) => {
     const res = await api.post("/chatroom", {
-      roomName: "room from front end",
-      participants: [],
+      roomName,
+      participants,
     });
     if (res.status === 200) setChats((prev) => [...prev, res.data]);
   };
@@ -30,6 +31,16 @@ export default function App() {
     },
     []
   );
+
+  const renderModalContent = () => {
+    switch (modalComponent) {
+      case "CreateRoom":
+        return <CreateRoom createNewRoom={createNewRoom} />;
+      default:
+        return null;
+    }
+  };
+
   useEffect(() => {
     if (!token) return;
     const socket = socketIOClient(URL);
@@ -56,7 +67,9 @@ export default function App() {
       <Modal
         modalComponent={modalComponent}
         setModalComponent={setModalComponent}
-      />
+      >
+        {renderModalContent()}
+      </Modal>
       <div>
         <Header token={token} setToken={setToken} />
         <div style={{ display: "flex" }}>
@@ -66,7 +79,6 @@ export default function App() {
           />
           <ChatRoom />
         </div>
-        <button onClick={createNewRoom}>Create room</button>
       </div>
     </>
   );
