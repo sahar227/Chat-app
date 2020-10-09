@@ -5,10 +5,12 @@ import { URL } from "./configs";
 import api from "./apis/api";
 import ChatList from "./components/ChatList/ChatList";
 import ChatRoom from "./components/ChatRoom/ChatRoom";
+import Modal from "./components/Modal/Modal";
 
 export default function App() {
   const [token, setToken] = useState(null);
   const [chats, setChats] = useState([]);
+  const [modalComponent, setModalComponent] = useState(null);
 
   // TODO: pass this method to a modal
   const createNewRoom = async (chat) => {
@@ -50,13 +52,22 @@ export default function App() {
     getChats();
   }, [token, getChats]);
   return (
-    <div>
-      <Header token={token} setToken={setToken} />
-      <div style={{ display: "flex" }}>
-        <ChatList availableChats={chats} />
-        <ChatRoom />
+    <>
+      <Modal
+        modalComponent={modalComponent}
+        setModalComponent={setModalComponent}
+      />
+      <div>
+        <Header token={token} setToken={setToken} />
+        <div style={{ display: "flex" }}>
+          <ChatList
+            availableChats={chats}
+            setModalComponent={setModalComponent}
+          />
+          <ChatRoom />
+        </div>
+        <button onClick={createNewRoom}>Create room</button>
       </div>
-      <button onClick={createNewRoom}>Create room</button>
-    </div>
+    </>
   );
 }

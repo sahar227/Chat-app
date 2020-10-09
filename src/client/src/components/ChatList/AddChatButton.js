@@ -1,13 +1,8 @@
 import React from "react";
+import TestView from "../ModalViews/TestView";
 
-export default function AddChatButton() {
+export default function AddChatButton({ setModalComponent }) {
   return (
-    <button
-      onClick={() =>
-        console.log("Should open a modal and allow to add particiapnts")
-      }
-    >
-      add chat room
-    </button>
+    <button onClick={() => setModalComponent(TestView)}>add chat room</button>
   );
 }
