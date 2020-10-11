@@ -37,7 +37,10 @@ export default function ChatRoom({ chat, socket }) {
 
   const renderMessages = () => {
     return messages.map((message) => (
-      <p key={message._id}>{message.content}</p>
+      <div key={message._id}>
+        {message.createdAt}
+        <p>{message.content}</p>
+      </div>
     ));
   };
 

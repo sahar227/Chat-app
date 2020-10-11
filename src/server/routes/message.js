@@ -35,12 +35,13 @@ router.post(
     });
     await message.save();
 
-    // TODO: send socket notification to all participants in the chat who are logged in
+    // send socket notification to all participants in the chat who are logged in
     const messageNotification = {
       _id: message.id,
       author: req.user.id,
       chatRoom: req.body.chatroom,
       content: req.body.content,
+      createdAt: message.createdAt,
     };
     for (const participant of chatRoom.participants) {
       notifyNewMessage(participant, messageNotification);
