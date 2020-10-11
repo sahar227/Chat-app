@@ -25,6 +25,7 @@ router.post(
     const participants = req.body.participants.map((participantId) =>
       mongoose.Types.ObjectId(participantId)
     );
+    participants.push(req.user.id);
     const chatRoom = new ChatRoom({
       roomName: req.body.roomName,
       participants,
@@ -36,7 +37,7 @@ router.post(
       if (participantId.toString() === req.user._id.toString()) continue;
       const user = await User.findById(participantId);
       user.chats.push(chatRoom);
-      user.save();
+      await user.save();
     }
     return res.status(200).send(chatRoom);
   })

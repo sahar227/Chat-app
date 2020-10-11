@@ -11,7 +11,9 @@ import CreateRoom from "./components/ModalViews/CreateRoom";
 export default function App() {
   const [token, setToken] = useState(null);
   const [chats, setChats] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(null);
   const [modalComponent, setModalComponent] = useState("");
+  const [socket, setSocket] = useState(null);
 
   // TODO: pass this method to a modal
   const createNewRoom = async (roomName, participants) => {
@@ -53,7 +55,7 @@ export default function App() {
     socket.on("authSuccess", () => {
       console.log("auth success");
     });
-
+    setSocket(socket);
     // clean up when done
     return () => socket.disconnect();
   }, [token]);
@@ -76,8 +78,9 @@ export default function App() {
           <ChatList
             availableChats={chats}
             setModalComponent={setModalComponent}
+            setSelectedChat={setSelectedChat}
           />
-          <ChatRoom />
+          <ChatRoom socket={socket} chat={selectedChat} />
         </div>
       </div>
     </>

@@ -9,7 +9,7 @@ const userSchema = new Schema({
   },
   email: String,
   googleId: String,
-  chats: [{ type: Schema.ObjectId, ref: "chatrooms", unique: true }],
+  chats: [{ type: Schema.ObjectId, ref: "chatrooms" }],
 });
 
 const validationSchema = joi.object({

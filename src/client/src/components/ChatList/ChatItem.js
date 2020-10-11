@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function ChatItem({ data }) {
+export default function ChatItem({ data, selectChat }) {
   return (
-    <div>
+    <div onClick={selectChat} style={{ cursor: "pointer" }}>
       <h3>{data.roomName}</h3>
       {data.lastMessage && (
         <p>
