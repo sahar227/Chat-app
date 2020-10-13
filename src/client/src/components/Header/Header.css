@@ -1,25 +1,25 @@
 .header-container {
-    background-color: black;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    color: chartreuse;
-    padding: 3px 0;
-    align-items: center;
+  background-color: rgb(255, 214, 250);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: rgb(121, 25, 92);
+  padding: 3px 0;
+  align-items: center;
 }
 
 .login-btn {
-    font-size: 1.1rem;
-    border: 1px solid white;
-    background-color: black;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 10%;
+  font-size: 1.1rem;
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10%;
 }
 
 .login-btn:hover {
-    background-color: white;
-    color:black;
+  background-color: white;
+  color: black;
 }

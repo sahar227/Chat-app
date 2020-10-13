@@ -7,6 +7,8 @@ import ChatList from "./components/ChatList/ChatList";
 import ChatRoom from "./components/ChatRoom/ChatRoom";
 import Modal from "./components/Modal/Modal";
 import CreateRoom from "./components/ModalViews/CreateRoom";
+import NotLoggedIn from "./components/NotLoggedIn/NotLoggedIn";
+import "./App.css";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -64,6 +66,22 @@ export default function App() {
     if (!token) return;
     getChats();
   }, [token, getChats]);
+
+  const renderApp = () => {
+    if (!token) {
+      return <NotLoggedIn token={token} setToken={setToken} />;
+    }
+    return (
+      <div style={{ display: "flex" }}>
+        <ChatList
+          availableChats={chats}
+          setModalComponent={setModalComponent}
+          setSelectedChat={setSelectedChat}
+        />
+        <ChatRoom socket={socket} chat={selectedChat} />
+      </div>
+    );
+  };
   return (
     <>
       <Modal
@@ -72,16 +90,9 @@ export default function App() {
       >
         {renderModalContent()}
       </Modal>
-      <div>
+      <div style={{ height: "50vh" }}>
         <Header token={token} setToken={setToken} />
-        <div style={{ display: "flex" }}>
-          <ChatList
-            availableChats={chats}
-            setModalComponent={setModalComponent}
-            setSelectedChat={setSelectedChat}
-          />
-          <ChatRoom socket={socket} chat={selectedChat} />
-        </div>
+        {renderApp()}
       </div>
     </>
   );
