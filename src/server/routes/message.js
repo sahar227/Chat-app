@@ -38,7 +38,7 @@ router.post(
     // send socket notification to all participants in the chat who are logged in
     const messageNotification = {
       _id: message.id,
-      author: req.user.id,
+      author: { name: req.user.name },
       chatRoom: req.body.chatroom,
       content: req.body.content,
       createdAt: message.createdAt,
