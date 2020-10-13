@@ -1,0 +1,18 @@
+.chat-list-container {
+  padding: 0 0.3rem;
+}
+
+.chat-list-bg {
+  padding: 0 1.5rem;
+  background-color: rgb(180, 45, 207);
+  border: 2px solid rgb(90, 2, 107);
+  border-radius: 5px;
+  height: 100%;
+  overflow: auto;
+}
+
+.chat-list-title {
+  margin: 0;
+  padding: 0;
+  color: white;
+}

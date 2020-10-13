@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import api from "../../apis/api";
+import NoRoomSelected from "../NoRoomSelected/NoRoomSelected";
+import "./ChatRoom.css";
 
 export default function ChatRoom({ chat, socket }) {
   const [messages, setMessages] = useState([]);
@@ -33,8 +35,6 @@ export default function ChatRoom({ chat, socket }) {
     return () => socket.off("new message");
   }, [socket, chat]);
 
-  if (!chat) return null;
-
   const renderMessages = () => {
     return messages.map((message) => (
       <div key={message._id}>
@@ -47,16 +47,25 @@ export default function ChatRoom({ chat, socket }) {
     ));
   };
 
-  return (
-    <div>
-      <h1>{chat.roomName}</h1>
-      {renderMessages()}
-      <input
-        value={currentMessage}
-        onChange={(e) => setCurrentMessage(e.target.value)}
-        placeholder="your message"
-      />
-      <button onClick={() => postMessage()}>Submit</button>
-    </div>
-  );
+  const renderRoom = () => {
+    if (!chat) return <NoRoomSelected />;
+    return (
+      <>
+        <h1 className={"room-name"}>{chat.roomName}</h1>
+        <div className="messages-container">{renderMessages()}</div>
+
+        <div className="message-input">
+          <input
+            value={currentMessage}
+            onChange={(e) => setCurrentMessage(e.target.value)}
+            placeholder="your message"
+            style={{ flexGrow: "1", marginRight: "3px" }}
+          />
+          <button onClick={() => postMessage()}>Submit</button>
+        </div>
+      </>
+    );
+  };
+
+  return <div className="chat-room-container">{renderRoom()}</div>;
 }

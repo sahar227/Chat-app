@@ -1,11 +1,15 @@
 .header-container {
-  background-color: rgb(255, 214, 250);
+  /* background-color: rgb(255, 214, 250); */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  color: rgb(121, 25, 92);
   padding: 3px 0;
   align-items: center;
+}
+
+.logo {
+  font-family: "Indie Flower", cursive;
+  color: rgb(235, 188, 221);
 }
 
 .login-btn {

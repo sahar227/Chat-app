@@ -72,7 +72,7 @@ export default function App() {
       return <NotLoggedIn token={token} setToken={setToken} />;
     }
     return (
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", height: "85vh" }}>
         <ChatList
           availableChats={chats}
           setModalComponent={setModalComponent}
@@ -90,7 +90,7 @@ export default function App() {
       >
         {renderModalContent()}
       </Modal>
-      <div style={{ height: "50vh" }}>
+      <div>
         <Header token={token} setToken={setToken} />
         {renderApp()}
       </div>

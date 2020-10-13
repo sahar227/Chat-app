@@ -6,4 +6,5 @@
   height: 100%;
   color: rgb(214, 192, 236);
   font-size: large;
+  min-height: 50vh;
 }
