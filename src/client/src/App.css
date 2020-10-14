@@ -2,3 +2,22 @@ body {
   background-color: rgb(121, 25, 92);
   color: rgb(193, 170, 219);
 }
+
+.button {
+  background-color: white; /* Green */
+  border: 2px solid #a10953;
+  border-radius: 5px;
+  color: #ff8bd8;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.3rem;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ff8bd8;
+  color: white;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from "../../apis/api";
+import "./CreateRoom.css";
 
 export default function CreateRoom({ createNewRoom }) {
   const [roomName, setRoomName] = useState("");
@@ -13,25 +14,31 @@ export default function CreateRoom({ createNewRoom }) {
     setParticipantsToAdd((prev) => [...prev, user]);
   };
   return (
-    <div>
-      <div>
-        Room name:
+    <div className="form-container">
+      <div className="input-row">
+        <p className="label">Room name:</p>
         <input
+          className="input"
           type="text"
           placeholder="New room name"
           value={roomName}
           onChange={(e) => setRoomName(e.target.value)}
         />
       </div>
-      <div>
-        Email:
-        <input
-          type="email"
-          placeholder="Enter friend's email"
-          value={emailInput}
-          onChange={(e) => setEmailInput(e.target.value)}
-        />
-        <button onClick={addParticipant}>Add!</button>
+      <div className="input-row">
+        <p className="label">Email:</p>
+        <div style={{ display: "flex" }}>
+          <input
+            className="input"
+            type="email"
+            placeholder="Enter friend's email"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+          />
+          <button className="button" onClick={addParticipant}>
+            Add!
+          </button>
+        </div>
       </div>
       {participantsToAdd.map((user) => (
         <p key={user._id}>
@@ -39,6 +46,7 @@ export default function CreateRoom({ createNewRoom }) {
         </p>
       ))}
       <button
+        className="button"
         onClick={() =>
           createNewRoom(
             roomName,

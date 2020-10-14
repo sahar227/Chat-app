@@ -1,0 +1,12 @@
+.chat-item {
+  cursor: pointer;
+}
+
+.chat-item:hover {
+  color: rgb(255, 223, 245);
+  transition: 0.2s;
+}
+
+.chat-item-active {
+  color: white;
+}

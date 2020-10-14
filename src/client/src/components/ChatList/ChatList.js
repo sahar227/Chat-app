@@ -7,6 +7,7 @@ export default function ChatList({
   availableChats,
   setModalComponent,
   setSelectedChat,
+  selectedChat,
 }) {
   return (
     <div className="chat-list-container">
@@ -16,6 +17,7 @@ export default function ChatList({
           <ChatItem
             key={chat._id}
             data={chat}
+            selectedChat={selectedChat}
             selectChat={() => setSelectedChat(chat)}
           />
         ))}

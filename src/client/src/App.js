@@ -77,6 +77,7 @@ export default function App() {
           availableChats={chats}
           setModalComponent={setModalComponent}
           setSelectedChat={setSelectedChat}
+          selectedChat={selectedChat}
         />
         <ChatRoom socket={socket} chat={selectedChat} />
       </div>

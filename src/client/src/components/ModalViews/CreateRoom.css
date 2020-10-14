@@ -1,0 +1,16 @@
+.input {
+  width: 50%;
+}
+
+.label {
+  margin: 0;
+  color: rgb(161, 15, 149);
+}
+
+.input-row {
+  margin-bottom: 1rem;
+}
+
+.form-container {
+  margin: 2rem;
+}
