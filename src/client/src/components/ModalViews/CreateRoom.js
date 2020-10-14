@@ -67,6 +67,7 @@ export default function CreateRoom({ createNewRoom }) {
       {error && <p style={{ color: "red" }}>{error}</p>}
       <button
         className="button"
+        disabled={roomName.length === 0}
         onClick={() =>
           createNewRoom(
             roomName,

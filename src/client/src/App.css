@@ -17,6 +17,16 @@ body {
   cursor: pointer;
 }
 
+.button:disabled {
+  color: gray;
+  background-color: white;
+  cursor: not-allowed;
+}
+.button:disabled:hover {
+  color: gray;
+  background-color: white;
+}
+
 .button:hover {
   background-color: #ff8bd8;
   color: white;
