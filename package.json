@@ -1,0 +1,20 @@
+{
+  "name": "Chat-app",
+  "version": "1.0.0",
+  "description": "Fullstack chat application using node, mongo, react and socket io",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd ./src/server && npm run prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahar227/Chat-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahar227/Chat-app/issues"
+  },
+  "homepage": "https://github.com/sahar227/Chat-app#readme"
+}
