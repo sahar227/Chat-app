@@ -4,6 +4,7 @@ const wrap = require("../middleware/wrap");
 const { ChatRoom, validateChatRoom } = require("../models/chatRoom");
 const { User } = require("../models/user");
 const mongoose = require("mongoose");
+const notifyNewRoom = require("../socketIO/notifications/notifyNewRoom");
 
 router.get(
   "/",
@@ -22,9 +23,9 @@ router.post(
     if (error) {
       return res.status(400).send(error);
     }
-    const participants = req.body.participants.map((participantId) =>
-      mongoose.Types.ObjectId(participantId)
-    );
+    const participants = [
+      ...new Set(req.body.participants),
+    ].map((participantId) => mongoose.Types.ObjectId(participantId));
     participants.push(req.user.id);
     const chatRoom = new ChatRoom({
       roomName: req.body.roomName,
@@ -33,11 +34,18 @@ router.post(
     await chatRoom.save();
     req.user.chats.push(chatRoom);
     await req.user.save();
+
+    const notificationData = {
+      _id: chatRoom._id,
+      roomName: chatRoom.roomName,
+    };
+    notifyNewRoom(req.user._id, notificationData);
     for (const participantId of participants) {
       if (participantId.toString() === req.user._id.toString()) continue;
       const user = await User.findById(participantId);
       user.chats.push(chatRoom);
       await user.save();
+      notifyNewRoom(user._id, notificationData);
     }
     return res.status(200).send(chatRoom);
   })

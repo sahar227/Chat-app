@@ -6,12 +6,31 @@ export default function CreateRoom({ createNewRoom }) {
   const [roomName, setRoomName] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [participantsToAdd, setParticipantsToAdd] = useState([]);
+  const [error, setError] = useState("");
 
   const addParticipant = async () => {
-    const res = await api.post("/user", { email: emailInput });
-    if (res.status < 200 || res.status > 299) return;
-    const user = res.data;
-    setParticipantsToAdd((prev) => [...prev, user]);
+    if (participantsToAdd.map((p) => p.email).indexOf(emailInput) !== -1) {
+      setError("User is already in participants list");
+      return;
+    }
+    try {
+      const res = await api.post("/user", { email: emailInput });
+      const user = res.data;
+      setError("");
+      setEmailInput("");
+      setParticipantsToAdd((prev) => [...prev, user]);
+    } catch ({ response }) {
+      setError(response.data);
+    }
+  };
+
+  const handleRoomNameInput = (e) => {
+    if (e.target.value.length > 20) {
+      setError("Max room name length reached");
+    } else {
+      setRoomName(e.target.value);
+      setError("");
+    }
   };
   return (
     <div className="form-container">
@@ -22,7 +41,7 @@ export default function CreateRoom({ createNewRoom }) {
           type="text"
           placeholder="New room name"
           value={roomName}
-          onChange={(e) => setRoomName(e.target.value)}
+          onChange={handleRoomNameInput}
         />
       </div>
       <div className="input-row">
@@ -45,6 +64,7 @@ export default function CreateRoom({ createNewRoom }) {
           {user.name.first} {user.name.last}
         </p>
       ))}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <button
         className="button"
         onClick={() =>

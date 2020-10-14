@@ -6,6 +6,7 @@ import "./ChatRoom.css";
 export default function ChatRoom({ chat, socket }) {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
+  const [error, setError] = useState("");
   const getMessages = useCallback(async () => {
     const res = await api.get(`/message/${chat._id}`);
     if (res.status >= 200 && res.status <= 299) {
@@ -14,6 +15,7 @@ export default function ChatRoom({ chat, socket }) {
   }, [setMessages, chat]);
 
   const postMessage = async () => {
+    if (currentMessage === "") return;
     const res = await api.post("/message", {
       content: currentMessage,
       chatroom: chat._id,
@@ -22,6 +24,16 @@ export default function ChatRoom({ chat, socket }) {
       setCurrentMessage("");
     }
   };
+
+  const setMessage = (e) => {
+    if (e.target.value.length > 255) {
+      setError("Max message length reached");
+    } else {
+      setCurrentMessage(e.target.value);
+      setError("");
+    }
+  };
+
   useEffect(() => {
     if (chat == null) return;
     getMessages();
@@ -57,12 +69,14 @@ export default function ChatRoom({ chat, socket }) {
         <div className="message-input">
           <input
             value={currentMessage}
-            onChange={(e) => setCurrentMessage(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && postMessage()}
+            onChange={setMessage}
             placeholder="your message"
             style={{ flexGrow: "1", marginRight: "3px" }}
           />
           <button onClick={() => postMessage()}>Submit</button>
         </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </>
     );
   };

@@ -20,7 +20,10 @@ const validationSchema = joi.object({
 });
 
 const validate = (params) => {
-  return validationSchema.validate(params).error;
+  const validationResponse = validationSchema.validate(params);
+  if (validationResponse.error)
+    return validationSchema.validate(params).error.details[0].message;
+  return null;
 };
 
 const User = mongoose.model("users", userSchema);

@@ -18,12 +18,11 @@ export default function App() {
   const [socket, setSocket] = useState(null);
 
   // TODO: pass this method to a modal
-  const createNewRoom = async (roomName, participants) => {
-    const res = await api.post("/chatroom", {
+  const createNewRoom = (roomName, participants) => {
+    api.post("/chatroom", {
       roomName,
       participants,
     });
-    if (res.status === 200) setChats((prev) => [...prev, res.data]);
   };
 
   const getChats = useMemo(
@@ -56,6 +55,9 @@ export default function App() {
     });
     socket.on("authSuccess", () => {
       console.log("auth success");
+    });
+    socket.on("new room", (room) => {
+      setChats((prev) => [...prev, room]);
     });
     setSocket(socket);
     // clean up when done
