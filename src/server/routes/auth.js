@@ -24,9 +24,20 @@ router.get(
       { expiresIn: "60 min" },
       (err, token) => {
         if (err) {
-          res.sendStatus(500);
+          return res.sendStatus(500);
         } else {
-          res.cookie("jwt", token).redirect(process.env.CORS_ORIGIN);
+          const htmlWithEmbeddedJWT = `
+          <html>
+            <script>
+              // Save JWT to localStorage
+              window.localStorage.setItem('JWT', '${token}');
+              // Redirect browser to root of application
+              window.location.href = '${process.env.CORS_ORIGIN}';
+            </script>
+          </html>
+          `;
+
+          return res.send(htmlWithEmbeddedJWT);
         }
       }
     );

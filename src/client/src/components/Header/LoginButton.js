@@ -1,11 +1,10 @@
 import React, { useEffect, useCallback } from "react";
 import { URL } from "../../configs";
-import Cookies from "js-cookie";
 import api from "../../apis/api";
 
 const LoginButton = ({ token, setToken }) => {
   const validateToken = useCallback(async () => {
-    const jwtToken = Cookies.get("jwt");
+    const jwtToken = localStorage.get("JWT");
     if (jwtToken) {
       const res = await api.get("/auth/test");
       if (res.status >= 200 || res.status <= 299) setToken(jwtToken);
@@ -23,7 +22,11 @@ const LoginButton = ({ token, setToken }) => {
       </a>
     );
   return (
-    <a href="/" onClick={() => Cookies.remove("jwt")} className="login-btn">
+    <a
+      href="/"
+      onClick={() => localStorage.removeItem("JWT")}
+      className="login-btn"
+    >
       Log out
     </a>
   );
