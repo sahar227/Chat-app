@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const config = require("config");
 const auth = require("../middleware/auth");
 
 router.get(
@@ -21,13 +20,13 @@ router.get(
   (req, res) => {
     jwt.sign(
       { userId: req.user.id },
-      config.get("jwtAuth.secret"),
+      process.env.JWT_SECRET,
       { expiresIn: "60 min" },
       (err, token) => {
         if (err) {
           res.sendStatus(500);
         } else {
-          res.cookie("jwt", token).redirect(config.get("corsOptions.origin"));
+          res.cookie("jwt", token).redirect(process.env.CORS_ORIGIN);
         }
       }
     );

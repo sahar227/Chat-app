@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
-const config = require('config');
+const mongoose = require("mongoose");
 
 module.exports = async () => {
-    await mongoose.connect(config.get('mongo.connection_string'), {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
-      });
-}
+  await mongoose.connect(process.env.MONGO_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  });
+};

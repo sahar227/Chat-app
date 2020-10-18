@@ -1,4 +1,4 @@
-const config = require("config");
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const logger = require("./libs/logger");
 
 const setUpMiddleWare = require("./libs/setUpMiddleware");
@@ -36,7 +36,7 @@ getIO().on("connection", (socket) => {
 
   socket.on("authenticate", async (token) => {
     if (!token) return socket.emit("authFailed");
-    const userId = jwt.verify(token, config.get("jwtAuth.secret")).userId;
+    const userId = jwt.verify(token, process.env.JWT_SECRET).userId;
     const user = await User.findById(userId);
     if (!user) return socket.emit("authFailed");
     userToSockets.addConnection(userId, socket.id);
@@ -45,5 +45,5 @@ getIO().on("connection", (socket) => {
   socket.emit("requestAuth");
 });
 
-const port = config.get("server.port");
+const port = process.env.PORT;
 server.listen(port, () => logger.info(`Listening on port ${port}`));

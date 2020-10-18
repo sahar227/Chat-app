@@ -1,13 +1,11 @@
-const socketIO = require('socket.io');
-
-let io = null
+let io = null;
 const setUpSocketIO = (ioInstance) => {
-    io = ioInstance;
-}
+  io = ioInstance;
+};
 
 const getIO = () => io;
 
 module.exports = {
-    getIO,
-    setUpSocketIO
+  getIO,
+  setUpSocketIO,
 };
