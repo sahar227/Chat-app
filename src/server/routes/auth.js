@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const passport = require("passport");
-const config = require("config");
 const auth = require("../middleware/auth");
 
 router.get(
@@ -18,7 +17,7 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { session: true }),
   (req, res) => {
-    return res.redirect(config.get("corsOptions.origin"));
+    return res.redirect('/');
   }
 );
 
