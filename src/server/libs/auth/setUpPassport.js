@@ -1,6 +1,5 @@
 const passport = require('passport');
 const googleStrategy = require('./strategies/googleStrategy');
-const jwtStrategy = require('./strategies/jwtStrategy');
 const {User} = require('../../models/user');
 
 module.exports = () => {
@@ -14,6 +13,5 @@ module.exports = () => {
         });
       });
 
-    passport.use(jwtStrategy);
     passport.use(googleStrategy);
 };

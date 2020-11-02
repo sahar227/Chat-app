@@ -3,13 +3,25 @@ import { URL } from "../../configs";
 import api from "../../apis/api";
 
 const LoginButton = ({ token, setToken }) => {
+  const logout = async () => {
+    await api.get("/auth/logout");
+    setToken(null);
+  }
+
   const validateToken = useCallback(async () => {
-    const jwtToken = localStorage.get("JWT");
-    if (jwtToken) {
-      const res = await api.get("/auth/test");
-      if (res.status >= 200 || res.status <= 299) setToken(jwtToken);
-    }
-  }, [setToken]);
+      try {
+        const res = await api.get("/auth/test");
+        const isAuthSuccess = res.status >= 200 || res.status <= 299;
+        if(isAuthSuccess)
+          setToken(res.data);
+        else
+          setToken(null);
+      }
+      catch {
+        setToken(null);
+      }
+
+    }, [setToken]);
 
   useEffect(() => {
     validateToken();
@@ -22,13 +34,9 @@ const LoginButton = ({ token, setToken }) => {
       </a>
     );
   return (
-    <a
-      href="/"
-      onClick={() => localStorage.removeItem("JWT")}
-      className="login-btn"
-    >
+    <p onClick={logout} className="login-btn">
       Log out
-    </a>
+    </p>
   );
 };
 export default LoginButton;

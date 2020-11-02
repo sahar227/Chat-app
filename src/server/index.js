@@ -15,7 +15,6 @@ const chatRoomRouter = require("./routes/chatRoom");
 const messageRouter = require("./routes/message");
 const userRouter = require("./routes/user");
 
-const jwt = require("jsonwebtoken");
 const { User } = require("./models/user");
 const userToSockets = require("./libs/userToSocket");
 
@@ -34,9 +33,8 @@ getIO().on("connection", (socket) => {
     userToSockets.removeConnection(socket.id);
   });
 
-  socket.on("authenticate", async (token) => {
-    if (!token) return socket.emit("authFailed");
-    const userId = jwt.verify(token, process.env.JWT_SECRET).userId;
+  socket.on("authenticate", async (userId) => {
+    if (!userId) return socket.emit("authFailed");
     const user = await User.findById(userId);
     if (!user) return socket.emit("authFailed");
     userToSockets.addConnection(userId, socket.id);

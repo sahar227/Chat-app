@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const config = require("config");
 const auth = require("../middleware/auth");
 
 router.get(
@@ -10,42 +11,25 @@ router.get(
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
     ],
-    session: false,
+    session: true,
     approvalPrompt: "force",
   })
 );
 router.get(
   "/google/callback",
-  passport.authenticate("google", { session: false }),
+  passport.authenticate("google", { session: true }),
   (req, res) => {
-    jwt.sign(
-      { userId: req.user.id },
-      process.env.JWT_SECRET,
-      { expiresIn: "60 min" },
-      (err, token) => {
-        if (err) {
-          return res.sendStatus(500);
-        } else {
-          const htmlWithEmbeddedJWT = `
-          <html>
-            <script>
-              // Save JWT to localStorage
-              window.localStorage.setItem('JWT', '${token}');
-              // Redirect browser to root of application
-              window.location.href = '${process.env.CORS_ORIGIN}';
-            </script>
-          </html>
-          `;
-
-          return res.send(htmlWithEmbeddedJWT);
-        }
-      }
-    );
+    return res.redirect(config.get("corsOptions.origin"));
   }
 );
 
+router.get('/logout', auth, function(req, res){
+  req.logout();
+  return res.send('logged out');
+});
+
 router.get("/test", auth, (req, res) => {
-  return res.send(req.user);
+  return res.send(req.user.id);
 });
 
 module.exports = router;

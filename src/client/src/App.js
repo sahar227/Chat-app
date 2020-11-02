@@ -17,7 +17,6 @@ export default function App() {
   const [modalComponent, setModalComponent] = useState("");
   const [socket, setSocket] = useState(null);
 
-  // TODO: pass this method to a modal
   const createNewRoom = (roomName, participants) => {
     api.post("/chatroom", {
       roomName,
