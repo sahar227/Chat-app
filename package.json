@@ -4,7 +4,7 @@
   "description": "Fullstack chat application using node, mongo, react and socket io",
   "main": "index.js",
   "scripts": {
-    "build-client": "cd ./src/client && npm run build",
+    "build-client": "cd ./src/client && npm i && npm run build",
     "start": "npm run build-client && cd ./src/server && npm i &&  npm run prod"
   },
   "repository": {
