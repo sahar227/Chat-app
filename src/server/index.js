@@ -20,7 +20,7 @@ const userRouter = require("./routes/user");
 const { User } = require("./models/user");
 const userToSockets = require("./libs/userToSocket");
 
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
+app.use(express.static(path.join(__dirname, "staticFiles")));
 
 setUpMiddleWare(app);
 setUpSocketIO(io);
